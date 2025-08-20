@@ -1,0 +1,84 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+*.env
+
+# PyCharm IDE files
+.idea/
+
+# macOS system files
+.DS_Store
+
+# VSCode configs, just in case
+.vscode/
+
+# Poetry
+poetry.lock
+# (можно оставить в репо, если хочешь зафиксировать зависимости)
+
+# dotenv / sensitive data
+.env
+.env.*
+
+# Testing / Coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.cache
+nosetests.xml
+pytestdebug.log
+
+# Build stuff
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+
+# Python wheels
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs
+*.log
+
+# MyPy / Pyright
+.mypy_cache/
+.pyright_cache/
+dmypy.json
+dmypy.log
+
+# Profiling
+.prof
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Test results
+.coverage
+htmlcov/
+.tox/
+pytest_cache/
+
+
