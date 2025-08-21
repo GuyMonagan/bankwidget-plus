@@ -30,6 +30,7 @@ line-length = 119
 line_length = 119
 
 [tool.mypy]
+mypy_path = "src"
 disallow_untyped_defs = true
 warn_return_any = true
 exclude = ["venv"]
