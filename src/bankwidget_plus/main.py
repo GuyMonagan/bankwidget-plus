@@ -3,7 +3,7 @@ from bankwidget_plus.data_loader import load_data
 from bankwidget_plus.views import homepage_view
 
 
-def main():
+def main() -> None:
     df = load_data(EXCEL_PATH)
     date_input = input("Введите дату в формате DD.MM.YYYY HH:MM:SS: ")
     json_result = homepage_view(df, date_input)

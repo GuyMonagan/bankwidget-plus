@@ -57,7 +57,15 @@ poetry run pytest --cov=src --cov-report=term-missing
 
 ```
 Покрытие: ≥ 80%
+
 Используются фикстуры, mock, patch, параметризация.
+
+
+## Coverage Report
+
+Локальный HTML-отчёт о покрытии кода доступен по пути:
+http://localhost:63342/bankwidget-plus/htmlcov/index.html?_ijt=f7hpd6dnph5q6up5c3ik3kj33o&_ij_reload=RELOAD_ON_SAVE
+
 
 ## Линтинг и форматирование
 
