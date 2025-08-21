@@ -76,9 +76,6 @@ dmypy.log
 .ipynb_checkpoints/
 
 # Test results
-.coverage
-htmlcov/
-.tox/
 pytest_cache/
 
 

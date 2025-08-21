@@ -12,6 +12,7 @@ readme = "README.md"
 python = ">=3.11"
 pandas = "^2.0.0"
 openpyxl = "^3.1.2"
+python-dotenv = "^1.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0"
@@ -19,6 +20,7 @@ flake8 = "^6.0"
 isort = "^5.12"
 black = "^24.0"
 mypy = "^1.0"
+pytest-cov = "^6.2.1"
 
 [tool.black]
 line-length = 119
