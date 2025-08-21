@@ -1,6 +1,8 @@
-import pytest
 import pandas as pd
+import pytest
+
 from bankwidget_plus.views import homepage_view
+
 
 @pytest.fixture
 def sample_df():

@@ -1,12 +1,15 @@
 import json
 import logging
 from datetime import datetime
+from pandas import DataFrame
+
 from bankwidget_plus.utils import filter_transactions_since_date
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def homepage_view(df, date_str: str) -> str:
+
+def homepage_view(df: DataFrame, date_str: str) -> str:
     """
     Возвращает JSON-ответ с информацией о транзакциях с указанной даты.
     """
@@ -21,7 +24,7 @@ def homepage_view(df, date_str: str) -> str:
         result = {
             "count": len(filtered_df),
             "total_amount": float(filtered_df["Сумма платежа"].sum()),
-            "transactions": filtered_df.to_dict(orient="records")
+            "transactions": filtered_df.to_dict(orient="records"),
         }
 
         return json.dumps(result, ensure_ascii=False, indent=2)

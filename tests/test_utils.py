@@ -1,7 +1,10 @@
-import pytest
-import pandas as pd
 from datetime import datetime
+
+import pandas as pd
+import pytest
+
 from bankwidget_plus.utils import filter_transactions_since_date
+
 
 @pytest.fixture
 def sample_df():
@@ -25,4 +28,3 @@ def test_filter_ignores_invalid_dates(sample_df):
     filtered = filter_transactions_since_date(sample_df, start_date)
     # Проверяем, что строка с "некорректная" не прошла
     assert "некорректная" not in filtered["Дата операции"].astype(str).tolist()
-

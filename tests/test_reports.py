@@ -1,7 +1,10 @@
-import pytest
-import pandas as pd
-from bankwidget_plus.reports import expenses_by_weekday
 import json
+
+import pandas as pd
+import pytest
+
+from bankwidget_plus.reports import expenses_by_weekday
+
 
 @pytest.fixture
 def df_for_weekdays():
@@ -13,6 +16,7 @@ def df_for_weekdays():
         {"Дата операции": "2025-08-22", "Сумма платежа": 500.0},  # Пт
     ]
     return pd.DataFrame(data)
+
 
 def test_expenses_by_weekday(df_for_weekdays):
     result_json = expenses_by_weekday(df_for_weekdays)
