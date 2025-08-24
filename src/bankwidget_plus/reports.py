@@ -6,19 +6,38 @@ import pandas as pd
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-WEEKDAYS_RU = {0: "Понедельник", 1: "Вторник", 2: "Среда", 3: "Четверг", 4: "Пятница", 5: "Суббота", 6: "Воскресенье"}
+WEEKDAYS_RU = {
+    0: "Понедельник",
+    1: "Вторник",
+    2: "Среда",
+    3: "Четверг",
+    4: "Пятница",
+    5: "Суббота",
+    6: "Воскресенье"
+}
 
 
 def expenses_by_weekday(df: pd.DataFrame, start_date: str = "2000-01-01") -> str:
     try:
         logger.info(f"Отчёт по дням недели с {start_date}")
-        df["Дата операции"] = pd.to_datetime(df["Дата операции"], errors="coerce")
-        df_filtered = df[df["Дата операции"] >= pd.to_datetime(start_date)]
 
-        df_filtered["weekday"] = df_filtered["Дата операции"].dt.weekday
+        # Преобразуем столбец с датами
+        df["Дата операции"] = pd.to_datetime(df["Дата операции"], errors="coerce")
+
+        # Фильтруем по дате и явно создаём копию
+        df_filtered = df[df["Дата операции"] >= pd.to_datetime(start_date)].copy()
+
+        # Добавляем день недели в копию
+        df_filtered.loc[:, "weekday"] = df_filtered["Дата операции"].dt.weekday
+
+        # Группировка по дню недели и подсчёт суммы
         result = df_filtered.groupby("weekday")["Сумма платежа"].sum().to_dict()
 
-        readable_result = {WEEKDAYS_RU.get(day): float(amount) for day, amount in result.items()}
+        # Преобразование в читаемый формат
+        readable_result = {
+            WEEKDAYS_RU.get(day): float(amount)
+            for day, amount in result.items()
+        }
 
         return json.dumps(readable_result, ensure_ascii=False, indent=2)
 
