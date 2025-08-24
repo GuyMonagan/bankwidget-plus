@@ -64,8 +64,7 @@ poetry run pytest --cov=src --cov-report=term-missing
 ## Coverage Report
 
 Локальный HTML-отчёт о покрытии кода доступен по пути:
-http://localhost:63342/bankwidget-plus/htmlcov/index.html?_ijt=7s3lhrhnnja6lid01k1vlrgqj3&_ij_reload=RELOAD_ON_SAVE
-
+http://localhost:63342/bankwidget-plus/htmlcov/index.html?_ijt=9lheiqoku0gbq65jvqmcgepd1n&_ij_reload=RELOAD_ON_SAVE
 ## Линтинг и форматирование
 
 ```commandline
