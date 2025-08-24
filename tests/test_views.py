@@ -1,10 +1,12 @@
 import pandas as pd
 import pytest
+from pandas import DataFrame
 
 from bankwidget_plus.views import homepage_view
 
+
 @pytest.fixture
-def sample_df():
+def sample_df() -> DataFrame:
     data = [
         {"Дата операции": "2025-01-08", "Сумма платежа": 1000.0, "Описание": "Перевод в другом банке"},
         {"Дата операции": "некорректная", "Сумма платежа": 2500.5, "Описание": "Оплата товаров"},
@@ -12,14 +14,15 @@ def sample_df():
     ]
     return pd.DataFrame(data)
 
-def test_homepage_view_filters_correctly(sample_df):
-    # Новый формат: YYYY-MM-DD HH:MM:SS
+
+def test_homepage_view_filters_correctly(sample_df: DataFrame) -> None:
     result_json = homepage_view(sample_df, "2025-01-01 00:00:00")
     assert '"count": 2' in result_json
     assert '"total_amount": 1300.0' in result_json
     assert "Перевод" in result_json
     assert "Кафе" in result_json
 
-def test_homepage_view_invalid_dates(sample_df):
+
+def test_homepage_view_invalid_dates(sample_df: DataFrame) -> None:
     result_json = homepage_view(sample_df, "2025-01-01 00:00:00")
     assert "Оплата товаров" not in result_json

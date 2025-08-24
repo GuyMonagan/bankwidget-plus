@@ -1,8 +1,8 @@
 from bankwidget_plus.config import EXCEL_PATH
 from bankwidget_plus.data_loader import load_data
-from bankwidget_plus.views import homepage_view
 from bankwidget_plus.reports import expenses_by_weekday
 from bankwidget_plus.services import simple_search
+from bankwidget_plus.views import homepage_view
 
 
 def main() -> None:

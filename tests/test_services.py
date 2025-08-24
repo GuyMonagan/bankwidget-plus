@@ -1,4 +1,5 @@
 import json
+from typing import Any
 
 import pytest
 
@@ -6,7 +7,7 @@ from bankwidget_plus.services import simple_search
 
 
 @pytest.fixture
-def transactions():
+def transactions() -> list[dict[str, str]]:
     return [
         {"Описание": "Покупка кофе в Старбаксе"},
         {"Описание": "Оплата электроэнергии"},
@@ -15,9 +16,9 @@ def transactions():
     ]
 
 
-def test_simple_search_matches(transactions):
-    result_json = simple_search("кофе", transactions)
-    result = json.loads(result_json)
+def test_simple_search_matches(transactions: list[dict[str, str]]) -> None:
+    result_json: str = simple_search("кофе", transactions)
+    result: dict[str, Any] = json.loads(result_json)
 
     assert result["query"] == "кофе"
     assert result["matches"] == 2
@@ -25,9 +26,9 @@ def test_simple_search_matches(transactions):
     assert any("молоком" in tx["Описание"] for tx in result["results"])
 
 
-def test_simple_search_no_matches(transactions):
-    result_json = simple_search("стиральная машина", transactions)
-    result = json.loads(result_json)
+def test_simple_search_no_matches(transactions: list[dict[str, str]]) -> None:
+    result_json: str = simple_search("стиральная машина", transactions)
+    result: dict[str, Any] = json.loads(result_json)
 
     assert result["matches"] == 0
     assert result["results"] == []

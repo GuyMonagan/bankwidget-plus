@@ -1,6 +1,7 @@
 import json
 import logging
 from datetime import datetime
+
 from pandas import DataFrame
 
 from bankwidget_plus.utils import filter_transactions_since_date
