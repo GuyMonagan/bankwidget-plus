@@ -14,7 +14,7 @@ def homepage_view(df: DataFrame, date_str: str) -> str:
     Возвращает JSON-ответ с информацией о транзакциях с указанной даты.
     """
     try:
-        date = datetime.strptime(date_str, "%d.%m.%Y %H:%M:%S")
+        date = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
         logger.info(f"Фильтрация транзакций начиная с: {date_str}")
         filtered_df = filter_transactions_since_date(df, date)
 

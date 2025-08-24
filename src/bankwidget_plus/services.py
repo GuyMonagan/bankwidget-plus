@@ -1,5 +1,3 @@
-# services.py
-
 import json
 import logging
 
