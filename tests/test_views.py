@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 import pytest
 from pandas import DataFrame
@@ -15,14 +17,41 @@ def sample_df() -> DataFrame:
     return pd.DataFrame(data)
 
 
-def test_homepage_view_filters_correctly(sample_df: DataFrame) -> None:
-    result_json = homepage_view(sample_df, "2025-01-01 00:00:00")
-    assert '"count": 2' in result_json
-    assert '"total_amount": 1300.0' in result_json
-    assert "Перевод" in result_json
-    assert "Кафе" in result_json
+@pytest.mark.parametrize(
+    "date_input,expected_count,expected_amount,expected_descriptions,unexpected_descriptions",
+    [
+        (
+            "2025-01-01 00:00:00",  # дата
+            2,  # count
+            1300.0,  # сумма
+            ["Перевод", "Кафе"],  # ожидаемое
+            ["Оплата товаров"],  # исключаемое
+        ),
+        (
+            "2025-09-01 00:00:00",  # дата после всех транзакций
+            0,
+            0.0,
+            [],
+            ["Перевод", "Кафе", "Оплата товаров"],
+        ),
+    ],
+)
+def test_homepage_view_parametrized(
+    sample_df: DataFrame,
+    date_input: str,
+    expected_count: int,
+    expected_amount: float,
+    expected_descriptions: list[str],
+    unexpected_descriptions: list[str],
+) -> None:
+    result_json = homepage_view(sample_df, date_input)
+    parsed = json.loads(result_json)
 
+    assert parsed["count"] == expected_count
+    assert parsed["total_amount"] == expected_amount
 
-def test_homepage_view_invalid_dates(sample_df: DataFrame) -> None:
-    result_json = homepage_view(sample_df, "2025-01-01 00:00:00")
-    assert "Оплата товаров" not in result_json
+    for text in expected_descriptions:
+        assert any(text in tx["Описание"] for tx in parsed["transactions"])
+
+    for text in unexpected_descriptions:
+        assert all(text not in tx["Описание"] for tx in parsed["transactions"])
