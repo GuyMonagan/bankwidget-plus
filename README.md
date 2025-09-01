@@ -3,7 +3,7 @@
 Курсовой проект для анализа банковских транзакций.  
 Приложение работает с Excel-файлом и предоставляет:
 
-- Веб-функции для отображения и фильтрации транзакций
+- Консольные функции отображения и фильтрации транзакций
 - Сервисы для поиска и анализа данных
 - Отчёты по тратам в различных форматах
 
@@ -41,7 +41,7 @@ cp .env_template .env
 
 ## функциональность
 
-```commandline
+```
 | Категория | Функция                         | Описание                       |
 | --------- | ------------------------------- | ------------------------------ |
 | Веб       | Главная страница (`homepage`)   | JSON-фильтр по дате            |
@@ -64,8 +64,7 @@ poetry run pytest --cov=src --cov-report=term-missing
 ## Coverage Report
 
 Локальный HTML-отчёт о покрытии кода доступен по пути:
-http://localhost:63342/bankwidget-plus/htmlcov/index.html?_ijt=9lheiqoku0gbq65jvqmcgepd1n&_ij_reload=RELOAD_ON_SAVE
-## Линтинг и форматирование
+http://localhost:63342/bankwidget-plus/htmlcov/index.html?_ijt=rjnmdc8p6o51p6t7gs79hr9sfj&_ij_reload=RELOAD_ON_SAVE## Линтинг и форматирование
 
 ```commandline
 poetry run flake8 src/

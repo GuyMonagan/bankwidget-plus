@@ -1,5 +1,4 @@
 import json
-from typing import Any
 
 import pytest
 
@@ -16,19 +15,23 @@ def transactions() -> list[dict[str, str]]:
     ]
 
 
-def test_simple_search_matches(transactions: list[dict[str, str]]) -> None:
-    result_json: str = simple_search("кофе", transactions)
-    result: dict[str, Any] = json.loads(result_json)
+@pytest.mark.parametrize(
+    "query,expected_count,expected_descriptions",
+    [
+        ("кофе", 2, ["Старбаксе", "молоком"]),
+        ("перевод", 1, ["Перевод"]),
+        ("электроэнергии", 1, ["электроэнергии"]),
+        ("неизвестное", 0, []),
+    ],
+)
+def test_simple_search_parametrized(
+    transactions: list[dict[str, str]], query: str, expected_count: int, expected_descriptions: list[str]
+) -> None:
+    result_json = simple_search(query, transactions)
+    result = json.loads(result_json)
 
-    assert result["query"] == "кофе"
-    assert result["matches"] == 2
-    assert any("Старбаксе" in tx["Описание"] for tx in result["results"])
-    assert any("молоком" in tx["Описание"] for tx in result["results"])
+    assert result["query"] == query
+    assert result["matches"] == expected_count
 
-
-def test_simple_search_no_matches(transactions: list[dict[str, str]]) -> None:
-    result_json: str = simple_search("стиральная машина", transactions)
-    result: dict[str, Any] = json.loads(result_json)
-
-    assert result["matches"] == 0
-    assert result["results"] == []
+    for word in expected_descriptions:
+        assert any(word.lower() in tx["Описание"].lower() for tx in result["results"])
